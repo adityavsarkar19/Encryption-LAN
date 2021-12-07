@@ -29,13 +29,37 @@ def encrypt_decrypt(TEXT, KEY):
 
     return ENCTEXT
 
-#def proc()
+def proc(csocket,IP):
 
+    welcome_message = "\nWelcome! \nThis is a XOR Encryption and Decryption Tool to encrypt and decrypt your secret texts \nPress ”1” to Encrypt a string/text \nPress ”2” to Decrypt a string/text  \nPress ”3” to Encrypt a text file \nPress ”4” to Decrypt a text file \nPress”5” to Exit"
 
+    csocket.send(welcome_message.encode())
+    # receiving client choice
+    Choice = csocket.recv(1024).decode()
 
+    if Choice[0] == '1':
+        OriginalText = csocket.recv(1024).decode()
+        Key = csocket.recv(1024).decode()
+        EncryptedText=encrypt_decrypt(OriginalText, Key)
+        csocket.send(EncryptedText.encode())
 
+    elif Choice[0] == '2':
+        EncryptedText = csocket.recv(1024).decode()
+        Key = csocket.recv(1024).decode()
+        DecryptedText=encrypt_decrypt(EncryptedText, Key)
+        csocket.send(DecryptedText.encode())
 
+    if Choice[0] == '3':
+        Key = csocket.recv(1024).decode()
+        OriginalText = csocket.recv(1024).decode()
+        EncryptedText=encrypt_decrypt(OriginalText, Key)
+        csocket.send(EncryptedText.encode())
 
+    elif Choice[0] == '4':
+        Key = csocket.recv(1024).decode()
+        EncryptedText = csocket.recv(1024).decode()
+        DecryptedText=encrypt_decrypt(EncryptedText, Key)
+        csocket.send(DecryptedText.encode())
 
 
 
@@ -54,7 +78,7 @@ while True:
     IP = address[0]
     #Port = address[1]
     #Thread(target=proc, args=(csocket, IP)).start()
-    thread = threading.Thread(target = proc, args = (csocket, IP))
+    thread = threading.Thread(target = proc, args = (csocket,IP))
     thread.start()
 
 
