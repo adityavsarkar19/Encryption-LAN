@@ -1,4 +1,4 @@
-# Computer Networks Final Course Project
+# Computer Networks Final Course Project (CS-1340)
 There are two Encryption Algorithms we have implemented over LAN.
 They are:
 1. XOR Cipher
