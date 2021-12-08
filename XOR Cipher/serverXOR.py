@@ -24,7 +24,7 @@ def encrypt_decrypt(TEXT, KEY):
         T=TEXT[i]
         P=KEY[i%len(KEY)]
         E=chr(ord(T) ^ ord(P))
-                
+        #E=T        
         ENCTEXT+=E
 
     return ENCTEXT
@@ -35,31 +35,12 @@ def proc(csocket,IP):
 
     csocket.send(welcome_message.encode())
     # receiving client choice
-    Choice = csocket.recv(1024).decode()
+    #Choice = csocket.recv(1024).decode()
 
-    if Choice[0] == '1':
-        OriginalText = csocket.recv(1024).decode()
-        Key = csocket.recv(1024).decode()
-        EncryptedText=encrypt_decrypt(OriginalText, Key)
-        csocket.send(EncryptedText.encode())
-
-    elif Choice[0] == '2':
-        EncryptedText = csocket.recv(1024).decode()
-        Key = csocket.recv(1024).decode()
-        DecryptedText=encrypt_decrypt(EncryptedText, Key)
-        csocket.send(DecryptedText.encode())
-
-    if Choice[0] == '3':
-        Key = csocket.recv(1024).decode()
-        OriginalText = csocket.recv(1024).decode()
-        EncryptedText=encrypt_decrypt(OriginalText, Key)
-        csocket.send(EncryptedText.encode())
-
-    elif Choice[0] == '4':
-        Key = csocket.recv(1024).decode()
-        EncryptedText = csocket.recv(1024).decode()
-        DecryptedText=encrypt_decrypt(EncryptedText, Key)
-        csocket.send(DecryptedText.encode())
+    OriginalText = csocket.recv(1024).decode()
+    Key = csocket.recv(1024).decode()
+    EncryptedText=encrypt_decrypt(OriginalText, Key)
+    csocket.send(EncryptedText.encode())
 
 
 
